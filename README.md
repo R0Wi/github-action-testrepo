@@ -7,4 +7,4 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # github-action-testrepo
-Testrepository for testing various Github actions.
+Testrepository for testing various Github actions
