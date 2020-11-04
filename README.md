@@ -3,8 +3,11 @@
 **Table of Contents**
 
 - [github-action-testrepo](#github-action-testrepo)
+  - [another caption](#another-caption)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # github-action-testrepo
 Testrepository for testing various Github actions.
+
+## another caption
