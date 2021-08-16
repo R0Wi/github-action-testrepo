@@ -1,8 +1,7 @@
 name: Build and publish app release
 
 on:
-  release:
-      types: [published]
+  push:
 
 env:
   APP_NAME: nc_testapp
@@ -15,23 +14,21 @@ jobs:
         uses: actions/checkout@v2
         with:
           path: ${{ env.APP_NAME }}
-      #- name: Run build
-      #  run: cd ${{ env.APP_NAME }} && make appstore
-      - name: Upload app tarball to release
-        uses: svenstaro/upload-release-action@v2
-        id: attach_to_release
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ${{ env.APP_NAME }}/build/artifacts/appstore/${{ env.APP_NAME }}.tar.gz
-          asset_name: ${{ env.APP_NAME }}.tar.gz 
-          tag: ${{ github.ref }}
-          overwrite: true
+      #- name: Upload app tarball to release
+      #  uses: svenstaro/upload-release-action@v2
+      #  id: attach_to_release
+      #  with:
+      #    repo_token: ${{ secrets.GITHUB_TOKEN }}
+      #    file: ${{ env.APP_NAME }}/build/artifacts/appstore/${{ env.APP_NAME }}.tar.gz
+      #    asset_name: ${{ env.APP_NAME }}.tar.gz 
+      #    tag: ${{ github.ref }}
+      #    overwrite: true
       - name: Upload app to Nextcloud appstore
-        uses: R0Wi/nextcloud-appstore-push-action@feature/username_pw
+        uses: R0Wi/nextcloud-appstore-push-action@v1.0.3
         with:
           app_name: ${{ env.APP_NAME }}
-          appstore_username: ${{ secrets.APPSTORE_USER }}
-          appstore_password: ${{ secrets.APPSTORE_PASSWORD }}
-          download_url: ${{ steps.attach_to_release.outputs.browser_download_url }}
-          app_private_key: ${{ secrets.APP_PRIVATE_KEY }}
-          nightly: ${{ github.event.release.prerelease }}
+          appstore_username: user
+          appstore_password: pass
+          download_url: https://github.com/thrillfall/nextcloud-gpodder/releases/download/release-test-06/gpoddersync.tar.gz
+          app_private_key: pk
+          nightly: false
