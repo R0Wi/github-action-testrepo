@@ -1,0 +1,23 @@
+name: Docker test
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      docker-socker-proxy:
+        image: ghcr.io/nextcloud/nextcloud-appapi-dsp:release
+        env:
+          NC_HAPROXY_PASSWORD: some_secure_password
+        options: --privileged 
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
+        ports:
+          - 2375:2375
+    steps:
+      - name: ping proxy
+        shell: bash
+        run: |
+          curl -u app_api_haproxy_user:some_secure_password -s http://localhost:2375/_ping
